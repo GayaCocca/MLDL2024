@@ -40,7 +40,7 @@ class Policy(torch.nn.Module):
         # TASK 3: critic network for actor-critic algorithm
         self.fc1_critic = torch.nn.Linear(state_space, self.hidden)
         self.fc2_critic = torch.nn.Linear(self.hidden, self.hidden)
-        self.fc3_critic_mean = torch.nn.Linear(self.hidden, 1) #Why one?
+        self.fc3_critic_mean = torch.nn.Linear(self.hidden, 1) 
 
 
         self.init_weights()
@@ -104,13 +104,7 @@ class Agent(object):
             policy_gradient = -torch.sum(action_log_probs*discounted_rewards) #compute the policy gradient
 
         elif algorithm=='ActorCritic':
-         #
-        # TASK 3:
-        #   - compute boostrapped discounted return estimates
-        #   - compute advantage terms
-        #   - compute actor loss and critic loss
-        #   - compute gradients and step the optimizer
-        #
+        
 
         # Compute value estimates
             discounted_rewards = discount_rewards(rewards, self.gamma)
