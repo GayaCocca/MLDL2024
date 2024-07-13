@@ -104,13 +104,6 @@ class Agent(object):
             policy_gradient = -torch.sum(action_log_probs*discounted_rewards) #compute the policy gradient
 
         elif algorithm=='ActorCritic':
-         #
-        # TASK 3:
-        #   - compute boostrapped discounted return estimates
-        #   - compute advantage terms
-        #   - compute actor loss and critic loss
-        #   - compute gradients and step the optimizer
-        #
 
         # Compute value estimates
             discounted_rewards = discount_rewards(rewards, self.gamma)
