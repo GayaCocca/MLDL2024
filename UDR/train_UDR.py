@@ -29,11 +29,10 @@ def main():
         kwargs={"mass_ranges": best_mass_ranges}
     )
 
-    train_env = gym.make(env_id) #DOMAIN RANDOM.
+    train_env = gym.make(env_id)
 
     n_policies = 3
     eval_interval = 1000 # Evaluate every 1000 episodes
-    lenss = 10
     total_timesteps = 100000
     source_rewards = {i: [] for i in range(eval_interval, total_timesteps + 1, eval_interval)}
     
