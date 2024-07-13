@@ -47,7 +47,7 @@ def main():
 
     # Evaluate the final model	
         for step in range(eval_interval, total_timesteps + 1, eval_interval):
-            model.learn(total_timesteps= lenss, reset_num_timesteps=False)
+            model.learn(total_timesteps= eval_interval, reset_num_timesteps=False)
             print('second loop')
             mean_reward, _ = evaluate_policy(model, test_env, n_eval_episodes=50, render=False)
             source_rewards[step].append(mean_reward)
