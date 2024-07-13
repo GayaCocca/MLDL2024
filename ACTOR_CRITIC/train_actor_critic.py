@@ -56,7 +56,6 @@ def main():
 		done = False
 		train_reward = 0
 		
-		#env.set_random_parameters() #sampling of parameters for domain random.
 		state = env.reset()  # Reset the environment and observe the initial state
 
 		while not done:  # Loop until the episode is over
