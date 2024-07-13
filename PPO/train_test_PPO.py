@@ -16,7 +16,7 @@ def evaluate_model(model, env_id, n_eval_episodes=50):
 def main():
     n_policies = 3  # Number of different policies to train for variance calculation
     n_eval_episodes = 50
-    eval_interval = 1000 # Evaluate every 250 episodes
+    eval_interval = 1000 # Evaluate every 1000 episodes
     total_timesteps = 100000
 
     # Collect mean rewards for each training step
