@@ -33,7 +33,7 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         """Sample masses according to a domain randomization distribution"""
         # Define the uniform distributions for the link masses
        
-        # Sample new masses from the specified uniform distributions
+        # Sample new masses from the specified normal distributions
         new_masses = np.array([np.random.normal(loc, scale) for loc, scale in self.mass_dist_params])
        
         #
@@ -157,4 +157,4 @@ gym.envs.register(
     id="CustomHopperSimOpt-v0",
     entry_point="%s:CustomHopperSimOpt" % __name__,
     max_episode_steps=500,
-) #NON LO SO
+) 
