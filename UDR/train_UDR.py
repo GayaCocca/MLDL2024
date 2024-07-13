@@ -41,17 +41,16 @@ def main():
 
     for _ in range(n_policies):
         train_env = gym.make(env_id)
-        train_env = Monitor(train_env) # Wrap the training environment with Monitor
-        print('first loop') 
+        train_env = Monitor(train_env) # Wrap the training environment with Monitor 
         model = PPO('MlpPolicy', train_env, learning_rate=0.001, gamma = 0.99 , verbose=0)	
 
     # Evaluate the final model	
         for step in range(eval_interval, total_timesteps + 1, eval_interval):
             model.learn(total_timesteps= eval_interval, reset_num_timesteps=False)
-            print('second loop')
             mean_reward, _ = evaluate_policy(model, test_env, n_eval_episodes=50, render=False)
             source_rewards[step].append(mean_reward)
-
+         model.save("PPO_mld_UDR")
+       
     # Prepare data for plotting
     np.save('UDR_results.npy', source_rewards)
     plot_data = []
