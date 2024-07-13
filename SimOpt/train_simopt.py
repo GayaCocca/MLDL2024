@@ -33,8 +33,7 @@ def compute_discrepancy(real_obs, sim_obs): #computing of discrepancy
 	assert sim_obs.shape == real_obs.shape, "Observation shapes do not match"
     
     # Compute the weighted differences
-	#diff = W * (sim_obs - real_obs)
-	diff = (sim_obs - real_obs)
+	diff = W * (sim_obs - real_obs)
     
     # Compute 1 and 2 norms
 	l1_norm = np.sum(np.abs(diff), axis=1)
@@ -53,7 +52,7 @@ def main():
 	# Setting the tolerance for the variance
 	tol = 1e-3
 	
-    #definition of mean and variances
+    	#definition of mean and variances
 	mu_std1 = [3.92699082, 0.5]
 	mu_std2 = [2.71433605, 0.5]
 	mu_std3 = [5.0893801, 0.5]
@@ -110,8 +109,6 @@ def main():
 		print(f"Average Return REAL: {tot_rw_real/episodes}")
 			
 		#SAMPLE + SIM ROLLOUT
-
-
 		sim = gym.make('CustomHopper-source-v0')
 		# Sample the values of the masses from the normal distributions with mean and variance as above
 		masses = sim.get_parameters()
@@ -145,7 +142,7 @@ def main():
 		print(f"Average Return SIM: {tot_rw_sim/episodes}")
 		
 		#DISCREPANCY
-		# Calculate the discrepancy between simulation and reality using L2-norm
+		# Calculate the discrepancy between simulation and reality using the discrepancy function
 		min_length = min(min(len(obs) for obs in obs_real), min(len(obs) for obs in obs_sim))
 		obs_real = [obs[:min_length] for obs in obs_real]
 		obs_sim = [obs[:min_length] for obs in obs_sim]
@@ -178,8 +175,8 @@ def main():
 		param["x2"].mutate()
 		param["x3"].mutate()
 			
-		# Initialize the optimizer, 1200 evaulations Covariance Matrix Adaptation Evolution Strategy 
-		optim = ng.optimizers.CMA(parametrization = param, budget=1500)
+		# Initialize the optimizer, 1300 evaulations Covariance Matrix Adaptation Evolution Strategy 
+		optim = ng.optimizers.CMA(parametrization = param, budget=1300)
 		
 		# Use the retrieved value x1, x2, x3 to start the iterations of the optimizers
 		for _ in range(optim.budget):
@@ -214,11 +211,9 @@ def main():
 		print(f"Updated distributions: {mu_std1}, {mu_std2}, {mu_std3}")
 
 	#TRAIN THE DEFINITIVE MODEL
-
 	n_policies = 3
 	n_eval_episodes = 50
 	eval_interval = 1000 
-	lenss = 10
 	total_timesteps = 100000
 	source_rewards = {i: [] for i in range(eval_interval, total_timesteps + 1, eval_interval)}
 
@@ -229,19 +224,17 @@ def main():
 		masses[2] = np.random.normal(mu_std2[0], mu_std2[1], 1)
 		masses[3] = np.random.normal(mu_std3[0], mu_std3[1], 1)
 		sim_env.set_parameters(masses[1:])
-		model = PPO("MlpPolicy", sim_env, learning_rate=0.001, gamma = 0.99 , verbose=0) #train the model
-		#model.learn(total_timesteps=100)
-		#model.save("Simopt_ppo_policy_final")	
+		model = PPO("MlpPolicy", sim_env, learning_rate=0.001, gamma = 0.99 , verbose=0) #train the model	
 
-    # Evaluate the final model
-	
-	
+    		# Evaluate the final model
 		for step in range(eval_interval, total_timesteps + 1, eval_interval):
 			model.learn(total_timesteps= eval_interval, reset_num_timesteps=False)
 			mean_reward, _ = evaluate_policy(model, sim_env, n_eval_episodes=50, render=False)
 			source_rewards[step].append(mean_reward)
+		
+		model.save("Simopt_ppo_policy_final")
 
-    # Prepare data for plottin
+    # Prepare data for plot
 	np.save('SimOpt_results.npy', source_rewards)
 	plot_data = []
 	for step in source_rewards:
