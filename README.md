@@ -175,6 +175,7 @@ Inside the plot folder are included the final comparison graph `final_plot_UDR_S
 - `PPOtarget_results.npy`.
 - `SimOpt_results.npy`.
 - `UDR_results.npy`.
+  
 In addiction, in the folder there are the performance comparison plot and the time comparison plot, respectively `plot_comparison_R_RB_AC.py` and `plot_time_R_RB_AC.py` between REINFORCE, REINFORCE + baseline and Actor Critic.
 ### How to run the code
 - `final_plot_UDR_SIMOPT_BOUNDS.py` shows the comparison plot between performances of the SimOpt and UDR models in relation with PPO boundaries.
