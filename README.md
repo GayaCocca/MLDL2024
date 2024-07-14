@@ -182,7 +182,7 @@ In addiction, in the folder there are the performance comparison plot and the ti
 - `plot_comparison_R_RB_AC..py` shows the comparison between the performances of REINFORCE, REINFORCE + baseline and Actor Critic. Three different policies for each of them are trained and tested every 1000 episodes (for a total of 100000 episodes).
 - `plot_time_R_RB_AC.py` shows the comparison in time of REINFORCE, REINFORCE + baseline and Actor Critic. The average length of each episode every 1000 episodes is considered for each algorithm.
 
-For the latter two, the total and sampling number of episodes can be selected.
+For the latter two, the total and sampling number of episodes, the number of test episodes and the device can be selected.
 
 
 
