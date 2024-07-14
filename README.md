@@ -170,13 +170,17 @@ The resulting model is stored in the `Simopt_ppo_policy_final` folder.
 
 
 # plot
-Inside the plot folder are included the final comparison graph `final_plot_UDR_SIMOPT_BOUNDS.py` and the following results necessary for the plot:
+Inside the plot folder are included the final comparison graph `final_plot_UDR_SIMOPT_BOUNDS.py` and the following results necessary for the first plot:
 - `PPOsource_results.npy`.
 - `PPOtarget_results.npy`.
 - `SimOpt_results.npy`.
 - `UDR_results.npy`.
+In addiction, in the folder there are the performance comparison plot and the time comparison plot, respectively `final_plot_UDR_SIMOPT_BOUNDS.py` and `plot_time_R_RB_AC.py` between REINFORCE, REINFORCE + baseline and Actor Critic.
 ### How to run the code
 `final_plot_UDR_SIMOPT_BOUNDS.py` shows the comparison plot between performances of the SimOpt and UDR models in relation with PPO boundaries.
+`final_plot_UDR_SIMOPT_BOUNDS.py` shows the comparison between the performances of REINFORCE, REINFORCE + baseline and Actor Critic. Three different policies for each of them are trained and tested every 1000 episodes (for a total of 100000 episodes).
+`plot_time_R_RB_AC.py` shows the comparison in time of REINFORCE, REINFORCE + baseline and Actor Critic. The average length of each episode is considered for each algorithm.
+
 
 
 
