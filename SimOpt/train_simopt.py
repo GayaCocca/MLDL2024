@@ -216,6 +216,8 @@ def main():
 	eval_interval = 1000 
 	total_timesteps = 100000
 	source_rewards = {i: [] for i in range(eval_interval, total_timesteps + 1, eval_interval)}
+	test_env = gym.make('CustomHopper-target-v0')
+	test_env = Monitor(test_env)
 
 	for _ in range(n_policies):
 		sim_env = gym.make('CustomHopper-source-v0')
@@ -229,7 +231,7 @@ def main():
     		# Evaluate the final model
 		for step in range(eval_interval, total_timesteps + 1, eval_interval):
 			model.learn(total_timesteps= eval_interval, reset_num_timesteps=False)
-			mean_reward, _ = evaluate_policy(model, sim_env, n_eval_episodes=50, render=False)
+			mean_reward, _ = evaluate_policy(model, test_env, n_eval_episodes=50, render=False)
 			source_rewards[step].append(mean_reward)
 		
 		model.save("Simopt_ppo_policy_final")
